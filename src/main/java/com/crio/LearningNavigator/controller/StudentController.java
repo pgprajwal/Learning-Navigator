@@ -31,16 +31,6 @@ public class StudentController {
         return null;
     }
 
-    @GetMapping
-    public ResponseEntity<GetAllStudentsResponse> getAllStudents() {
-        return null;
-    }
-
-    @DeleteMapping("/{studentId}")
-    public ResponseEntity<String> deregisterStudent(@PathVariable long studentId) {
-        return null;
-    }
-
     @PutMapping("/{studentId}/subject/{subjectId}")
     public ResponseEntity<Student> enrollStudentInSubject(@PathVariable long studentId, @PathVariable long subjectId) {
         return null;
@@ -48,6 +38,16 @@ public class StudentController {
 
     @PutMapping("/{studentId}/exam/{examId}")
     public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) {
+        return null;
+    }
+
+    @GetMapping
+    public ResponseEntity<GetAllStudentsResponse> getAllStudents() {
+        return null;
+    }
+
+    @DeleteMapping("/{studentId}")
+    public ResponseEntity<String> deregisterStudent(@PathVariable long studentId) {
         return null;
     }
 }
