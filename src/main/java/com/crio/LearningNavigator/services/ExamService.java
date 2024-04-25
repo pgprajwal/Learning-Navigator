@@ -14,4 +14,5 @@ public interface ExamService {
     List<Exam> findAllExams();
 
     void deleteExam(long examId);
+    
 }

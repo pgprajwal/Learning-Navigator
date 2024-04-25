@@ -1,13 +1,12 @@
-package com.crio.LearningNavigator.services;
+package com.crio.LearningNavigator.repositoryServices;
 
 import java.util.List;
 
 import com.crio.LearningNavigator.dto.Student;
-import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
 
-public interface StudentService {
+public interface StudentRepositoryService {
 
-    Student registerStudent(RegisterStudentRequest registerStudentRequest);
+    Student createStudent(String studentName);
 
     Student findStudentById(long studentId);
 
@@ -17,6 +16,5 @@ public interface StudentService {
 
     List<Student> findAllStudents();
 
-    void deregisterStudent(long studentId);
-    
+    void deleteStudent(long studentId);
 }
