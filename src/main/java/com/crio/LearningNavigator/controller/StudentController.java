@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crio.LearningNavigator.dto.Student;
+import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
+import com.crio.LearningNavigator.exceptions.StudentNotFoundException;
+import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.GetAllStudentsResponse;
 import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
 import com.crio.LearningNavigator.services.StudentService;
@@ -35,19 +38,19 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public ResponseEntity<Student> getStudentById(@PathVariable long studentId) {
+    public ResponseEntity<Student> getStudentById(@PathVariable long studentId) throws StudentNotFoundException {
         Student student = studentService.findStudentById(studentId);
         return ResponseEntity.ok().body(student);
     }
 
     @PutMapping("/{studentId}/subject/{subjectId}")
-    public ResponseEntity<Student> enrollStudentInSubject(@PathVariable long studentId, @PathVariable long subjectId) {
+    public ResponseEntity<Student> enrollStudentInSubject(@PathVariable long studentId, @PathVariable long subjectId) throws StudentNotFoundException, SubjectNotFoundException {
         Student student = studentService.enrollStudentInSubject(studentId, subjectId);
         return ResponseEntity.ok().body(student);
     }
 
     @PutMapping("/{studentId}/exam/{examId}")
-    public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) {
+    public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) throws StudentNotFoundException, ExamNotFoundException {
         Student student = studentService.registerStudentForExam(studentId, examId);
         return ResponseEntity.ok().body(student);
     }
@@ -60,7 +63,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<String> deregisterStudent(@PathVariable long studentId) {
+    public ResponseEntity<String> deregisterStudent(@PathVariable long studentId) throws StudentNotFoundException {
         String message = "Successfully deleted student with ID: " + String.valueOf(studentId);
         studentService.deregisterStudent(studentId);
         return ResponseEntity.ok().body(message);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crio.LearningNavigator.dto.Subject;
+import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.CreateSubjectRequest;
 import com.crio.LearningNavigator.exchanges.GetAllSubjectsResponse;
 import com.crio.LearningNavigator.services.SubjectService;
@@ -34,7 +35,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{subjectId}")
-    public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId) {
+    public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId) throws SubjectNotFoundException {
         Subject subject = subjectService.findSubjectById(subjectId);
         return ResponseEntity.ok().body(subject);
     }
@@ -47,7 +48,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{subjectId}")
-    public ResponseEntity<String> deleteSubject(@PathVariable long subjectId) {
+    public ResponseEntity<String> deleteSubject(@PathVariable long subjectId) throws SubjectNotFoundException {
         String message = "Successfully deleted subject with ID: " + String.valueOf(subjectId);
         subjectService.deleteSubject(subjectId);
         return ResponseEntity.ok().body(message);

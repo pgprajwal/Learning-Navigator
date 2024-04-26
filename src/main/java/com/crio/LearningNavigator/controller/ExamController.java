@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crio.LearningNavigator.dto.Exam;
+import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
+import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.CreateExamRequest;
 import com.crio.LearningNavigator.exchanges.GetAllExamsResponse;
 import com.crio.LearningNavigator.services.ExamService;
@@ -28,13 +30,13 @@ public class ExamController {
     private ExamService examService;
 
     @PostMapping
-    public ResponseEntity<Exam> createExam(@Valid @RequestBody CreateExamRequest createExamRequest) {
+    public ResponseEntity<Exam> createExam(@Valid @RequestBody CreateExamRequest createExamRequest) throws SubjectNotFoundException {
         Exam exam = examService.createExam(createExamRequest);
         return ResponseEntity.ok().body(exam);
     }
 
     @GetMapping("/{examId}")
-    public ResponseEntity<Exam> getExamById(@PathVariable long examId) {
+    public ResponseEntity<Exam> getExamById(@PathVariable long examId) throws ExamNotFoundException {
         Exam exam = examService.findExamById(examId);
         return ResponseEntity.ok().body(exam);
     }
@@ -47,7 +49,7 @@ public class ExamController {
     }
 
     @DeleteMapping("/{examId}")
-    public ResponseEntity<String> deleteExam(@PathVariable long examId) {
+    public ResponseEntity<String> deleteExam(@PathVariable long examId) throws ExamNotFoundException {
         String message = "Successfully deleted exam with ID: " + String.valueOf(examId);
         examService.deleteExam(examId);
         return ResponseEntity.ok().body(message);
