@@ -1,5 +1,8 @@
 package com.crio.LearningNavigator.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crio.LearningNavigator.dto.Student;
 import com.crio.LearningNavigator.exchanges.GetAllStudentsResponse;
 import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
+import com.crio.LearningNavigator.services.StudentService;
 
 import jakarta.validation.Valid;
 
@@ -21,33 +25,44 @@ import jakarta.validation.Valid;
 public class StudentController {
     public static final String STUDENT_API_ENDPOINT = "/students";
 
+    @Autowired
+    private StudentService studentService;
+
     @PostMapping
     public ResponseEntity<Student> registerStudent(@Valid @RequestBody RegisterStudentRequest registerStudentRequest) {
-        return null;
+        Student student = studentService.registerStudent(registerStudentRequest);
+        return ResponseEntity.ok().body(student);
     }
 
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudentById(@PathVariable long studentId) {
-        return null;
+        Student student = studentService.findStudentById(studentId);
+        return ResponseEntity.ok().body(student);
     }
 
     @PutMapping("/{studentId}/subject/{subjectId}")
     public ResponseEntity<Student> enrollStudentInSubject(@PathVariable long studentId, @PathVariable long subjectId) {
-        return null;
+        Student student = studentService.enrollStudentInSubject(studentId, subjectId);
+        return ResponseEntity.ok().body(student);
     }
 
     @PutMapping("/{studentId}/exam/{examId}")
     public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) {
-        return null;
+        Student student = studentService.registerStudentForExam(studentId, examId);
+        return ResponseEntity.ok().body(student);
     }
 
     @GetMapping
     public ResponseEntity<GetAllStudentsResponse> getAllStudents() {
-        return null;
+        List<Student> students = studentService.findAllStudents();
+        GetAllStudentsResponse getAllStudentsResponse = new GetAllStudentsResponse(students);
+        return ResponseEntity.ok().body(getAllStudentsResponse);
     }
 
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deregisterStudent(@PathVariable long studentId) {
-        return null;
+        String message = "Successfully deleted student with ID: " + String.valueOf(studentId);
+        studentService.deregisterStudent(studentId);
+        return ResponseEntity.ok().body(message);
     }
 }
