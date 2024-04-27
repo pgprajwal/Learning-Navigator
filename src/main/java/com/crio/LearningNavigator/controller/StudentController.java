@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crio.LearningNavigator.dto.Student;
 import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
 import com.crio.LearningNavigator.exceptions.StudentNotFoundException;
+import com.crio.LearningNavigator.exceptions.SubjectNotEnrolledException;
 import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.GetAllStudentsResponse;
 import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
@@ -50,7 +51,7 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}/exam/{examId}")
-    public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) throws StudentNotFoundException, ExamNotFoundException {
+    public ResponseEntity<Student> registerStudentForExam(@PathVariable long studentId, @PathVariable long examId) throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException {
         Student student = studentService.registerStudentForExam(studentId, examId);
         return ResponseEntity.ok().body(student);
     }

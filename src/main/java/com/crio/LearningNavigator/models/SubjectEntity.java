@@ -27,5 +27,5 @@ public class SubjectEntity {
     private String name;
 
     @ManyToMany(mappedBy = "subjectEntities", fetch = FetchType.EAGER)
-    private Set<StudentEntity> studentEntities = new HashSet<>();
+    private Set<StudentEntity> registeredStudents = new HashSet<>();
 }

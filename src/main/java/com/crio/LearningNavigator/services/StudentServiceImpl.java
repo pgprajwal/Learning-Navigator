@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.crio.LearningNavigator.dto.Student;
 import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
 import com.crio.LearningNavigator.exceptions.StudentNotFoundException;
+import com.crio.LearningNavigator.exceptions.SubjectNotEnrolledException;
 import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
 import com.crio.LearningNavigator.repositoryServices.StudentRepositoryService;
@@ -38,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student registerStudentForExam(long studentId, long examId) throws StudentNotFoundException, ExamNotFoundException {
+    public Student registerStudentForExam(long studentId, long examId) throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException {
         Student student = studentRepositoryService.registerStudentForExam(studentId, examId);
         return student;
     }
