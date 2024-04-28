@@ -54,6 +54,7 @@ public class StudentRepositoryServiceImpl implements StudentRepositoryService {
         
         if(maybeStudentEntity.isPresent()) {
             StudentEntity studentEntity = maybeStudentEntity.get();
+            // System.out.println("Enrolled Subjects: " + studentEntity.getEnrolledSubjects());
             Student student = modelMapper.map(studentEntity, Student.class);
             return student;
         }

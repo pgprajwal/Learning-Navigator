@@ -36,7 +36,7 @@ public class ExamController {
     }
 
     @GetMapping("/{examId}")
-    public ResponseEntity<Exam> getExamById(@PathVariable long examId) throws ExamNotFoundException {
+    public ResponseEntity<Exam> getExamById(@PathVariable(value = "examId") long examId) throws ExamNotFoundException {
         Exam exam = examService.findExamById(examId);
         return ResponseEntity.ok().body(exam);
     }

@@ -35,7 +35,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{subjectId}")
-    public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId) throws SubjectNotFoundException {
+    public ResponseEntity<Subject> getSubjectById(@PathVariable(value = "subjectId") long subjectId) throws SubjectNotFoundException {
         Subject subject = subjectService.findSubjectById(subjectId);
         return ResponseEntity.ok().body(subject);
     }

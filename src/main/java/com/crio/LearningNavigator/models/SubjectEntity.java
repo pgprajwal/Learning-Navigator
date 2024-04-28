@@ -12,9 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"registeredStudents"})
 @Table(name = "subjects")
 public class SubjectEntity {
     
@@ -26,6 +28,6 @@ public class SubjectEntity {
     @Column(name = "subjectName")
     private String name;
 
-    @ManyToMany(mappedBy = "subjectEntities", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "enrolledSubjects", fetch = FetchType.EAGER)
     private Set<StudentEntity> registeredStudents = new HashSet<>();
 }
