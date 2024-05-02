@@ -15,24 +15,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)
     ResponseEntity<String> handleStudentNotFoundException(StudentNotFoundException ex) {
         String message = ex.getMessage();
-        return ResponseEntity.badRequest().body(message);
+        return ResponseEntity.status(404).body(message);
     }
 
     @ExceptionHandler(SubjectNotFoundException.class)
     ResponseEntity<String> handleSubjectNotFoundException(SubjectNotFoundException ex) {
         String message = ex.getMessage();
-        return ResponseEntity.badRequest().body(message);
+        return ResponseEntity.status(404).body(message);
     }
 
     @ExceptionHandler(ExamNotFoundException.class)
     ResponseEntity<String> handleExamNotFoundException(ExamNotFoundException ex) {
         String message = ex.getMessage();
-        return ResponseEntity.badRequest().body(message);
+        return ResponseEntity.status(404).body(message);
     }
 
     @ExceptionHandler(SubjectNotEnrolledException.class)
     ResponseEntity<String> handleSubjectNotEnrolledException(SubjectNotEnrolledException ex) {
         String message = ex.getMessage();
-        return ResponseEntity.badRequest().body(message);
+        return ResponseEntity.status(403).body(message);
     }
 }

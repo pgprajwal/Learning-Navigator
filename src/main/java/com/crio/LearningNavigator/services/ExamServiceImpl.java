@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crio.LearningNavigator.dto.Exam;
-import com.crio.LearningNavigator.dto.Subject;
 import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
 import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.exchanges.CreateExamRequest;
@@ -20,8 +19,8 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public Exam createExam(CreateExamRequest createExamRequest) throws SubjectNotFoundException {
-        Subject subject = createExamRequest.getSubject();
-        Exam exam = examRepositoryService.createExam(subject);
+        long subjectId = createExamRequest.getSubjectId();
+        Exam exam = examRepositoryService.createExam(subjectId);
         return exam;
     }
 

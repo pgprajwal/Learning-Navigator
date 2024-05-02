@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crio.LearningNavigator.dto.Exam;
-import com.crio.LearningNavigator.dto.Subject;
 import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
 import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 import com.crio.LearningNavigator.models.ExamEntity;
 import com.crio.LearningNavigator.models.SubjectEntity;
 import com.crio.LearningNavigator.repositories.ExamRepository;
+import com.crio.LearningNavigator.repositories.SubjectRepository;
 
 import jakarta.inject.Provider;
 
@@ -24,13 +24,18 @@ public class ExamRepositoryServiceImpl implements ExamRepositoryService {
     private ExamRepository examRepository;
 
     @Autowired
+    private SubjectRepository subjectRepository;
+
+    @Autowired
     private Provider<ModelMapper> modelMapperProvider;
 
     @Override
-    public Exam createExam(Subject subject) throws SubjectNotFoundException {
-        ExamEntity examEntity = new ExamEntity();
+    public Exam createExam(long subjectId) throws SubjectNotFoundException {
+        String message = "Could not find subject with ID: " + String.valueOf(subjectId);
         ModelMapper modelMapper = modelMapperProvider.get();
-        SubjectEntity subjectEntity = modelMapper.map(subject, SubjectEntity.class);
+
+        ExamEntity examEntity = new ExamEntity();
+        SubjectEntity subjectEntity = subjectRepository.findById(subjectId).orElseThrow(() -> new SubjectNotFoundException(message));
 
         examEntity.setSubjectEntity(subjectEntity);
         Exam exam = modelMapper.map(examRepository.save(examEntity), Exam.class);
