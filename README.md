@@ -52,7 +52,7 @@ A RESTful API service built using Spring Boot to manage the exam enrollment proc
 * Run the application using Gradle:
 
     ```bash
-    ./gradlew bootRun
+    ./gradlew bootrun
     ```
 ## API Endpoints
 
